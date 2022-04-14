@@ -16,3 +16,48 @@ npx create-react-app <APP_NAME>
 npm start
 ```
   - The browser should open with a React logo to confirm your app is working
+
+4. Install dependencies
+```
+npm install react-router-dom sass
+```
+## App hierarchy should look like:
+- -> App  
+  - -> Header  
+  - -> Main |state: things|  
+    - -> Switch  
+      - -> Route |path: "/"|  
+        - -> Index |Props: things, createThings|  
+      - -> Route |path="/things/:id|  
+        - -> Show |Props: things, updateThings, deleteThings|  
+
+
+5. Create components and pages directories
+```
+mkdir /src/components
+mkdir /src/pages
+```
+
+6. In components, create app components files
+```
+touch /src/components/Header.js
+touch /src/components/Main.js
+touch /src/components/Footer.js
+```
+
+7. In pages, create JSX template files
+```
+touch /src/pages/Index.js
+touch /src/pages/Show.js
+```
+
+8. Components will follow the same boilerplate:
+```JavaScript
+function Component(props) {
+    return <h1>Component Name</h1>
+}
+
+export default Component
+```
+
+9. Add your components to App.js
