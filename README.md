@@ -108,8 +108,10 @@ function Main(props) {
 export default Main
 ```
 > Switch is no longer used in React Router v6 and newer  
-Routes are chosen based on best match instead of being traversed in order like they used to with Switch
-- Use `<Routes>` everywhere you'd use `<Switch>`
+
+> Routes are chosen based on best match instead of being traversed in order like they used to with Switch  
+
+> Use `<Routes>` everywhere you'd use `<Switch>`
 
 11. Set up navigation in Header.js
 ```Javascript
@@ -128,4 +130,45 @@ function Header(props) {
 }
 
 export default Header
+```
+
+12. Use state in Main.js so it can be shared between Index and Show
+  > We need Main.js to have:  
+    1. State to hold list of things  
+    2. Function to make api call for thing (talk to our backend)  
+    3. Function to create new thing (talk to our backend)  
+    4. *useEffect* to make initial call for things list  
+    5. Pass the thing state and the create function to Index
+
+```JavaScript
+// in Main.js
+// import useEffect and useState
+import { useEffect, useState } from 'react';
+
+// under function Main(props) {
+
+const[things, setThings] = useState(null)
+
+const URL = 'http://localhost:3000/things/'
+// we will eventually update this to the deployed link
+// make sure this matches your root route from the backend
+
+const getThings = async () => {
+    const response = await fetch(URL)
+    const data = await response.json()
+    setThings(data)
+}
+
+const createThings = async (thing) => {
+    await fetch(URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "Application/json",
+        },
+        body: JSON.stringify(person),
+    })
+    getThings()
+}
+
+useEffect(() => getThings(), [])
 ```
