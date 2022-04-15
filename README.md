@@ -59,10 +59,73 @@ function Component(props) {
 
 export default Component
 ```
+> ***REMEMBER:*** any time you return JSX, there must be one overarching parent element (usually a `<div>`)
 
 9. Add your components to App.js
 ```JavaScript
 // in App.js
 
+import './App.css';
+import Header from './components/Header';
+import Main from './components/Main';
+import Footer from './components/Footer';
 
+function App() {
+  return (
+    <div className="App">
+     <Header />
+     <Main />
+     <Footer />
+    </div>
+  );
+}
+
+export default App;
+```
+10. Set up your routes in Main.js
+  - These routes should line up with your backend routes
+```JavaScript
+// in Main.js
+
+import { Route, Switch } from 'react-router-dom';
+import Index from '../pages/Index';
+import Show from '../pages/Show';
+
+function Main(props) {
+    return (
+    <main>
+        <Switch>
+            <Route exact path='/'>
+                <Index />
+            </Route>
+            <Route path='/things/:id' render={(rp) => <Show {...rp} />} />
+        </Switch>
+    </main>
+
+    )
+}
+
+export default Main
+```
+> Switch is no longer used in React Router v6 and newer  
+Routes are chosen based on best match instead of being traversed in order like they used to with Switch
+- Use `<Routes>` everywhere you'd use `<Switch>`
+
+11. Set up navigation in Header.js
+```Javascript
+// in Header.js
+
+import { Link } from 'react-router-dom'
+
+function Header(props) {
+    return (
+        <nav className='nav'>
+            <Link to='/'>
+                <div>App</div>
+            </Link>
+        </nav>
+    )
+}
+
+export default Header
 ```
