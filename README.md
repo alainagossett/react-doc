@@ -34,24 +34,24 @@ npm install react-router-dom sass
 
 5. Create components and pages directories
 ```
-mkdir /src/components
-mkdir /src/pages
+mkdir src/components
+mkdir src/pages
 ```
 
 6. In components, create app components files
 ```
-touch /src/components/Header.js
-touch /src/components/Main.js
-touch /src/components/Footer.js
+touch src/components/Header.js
+touch src/components/Main.js
+touch src/components/Footer.js
 ```
 
 7. In pages, create JSX template files
 ```
-touch /src/pages/Index.js
-touch /src/pages/Show.js
+touch src/pages/Index.js
+touch src/pages/Show.js
 ```
 
-8. Components will follow the same boilerplate:
+8. Inside ever components page, we will start with the same boilerplate:
 ```JavaScript
 function Component(props) {
     return <h1>Component Name</h1>
@@ -61,3 +61,8 @@ export default Component
 ```
 
 9. Add your components to App.js
+```JavaScript
+// in App.js
+
+
+```
