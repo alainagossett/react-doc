@@ -172,3 +172,90 @@ const createThings = async (thing) => {
 
 useEffect(() => getThings(), [])
 ```
+
+13. Display your database items in Index.js
+```JavaScript
+import { Link } from 'react-router-dom';
+
+// under function Index (props) {
+    const loaded = () => {
+        return props.things.map((thing) => (
+            <div key={thing._id} className="thing">
+                <Link to={`/things/${thing._id}`}>
+                <h1>{thing.name}</h1>
+                </Link>
+                <p>{thing.description}</p>
+            </div>
+        ))
+    }
+
+    const loading = () => {
+        return <h1>Loading...</h1>
+    }
+
+    return props.things ? loaded() : loading()
+```
+
+14. Add a form to Index.js
+  > The form should have:  
+    1. State to hold form data  
+    2. Form inputs in JSX  
+    3. handleChange function to allow state to control the form  
+    4. handleSubmit function to handle form submission  
+
+```JavaScript
+// add this to the top of the Index function
+const [newForm, setNewForm] = useState({
+    name: "",
+    description: "",
+    code: "",
+})
+
+const handleChange = (event) => {
+    setNewForm((prevState) => ({
+        ...prevState,
+        [event.target.name]: event.target.value,
+    }))
+}
+
+const handleSubmit = (event) => {
+    event.preventDefault()
+    props.createThings(newForm)
+    setNewForm({
+        name: "",
+        description: "",
+        code: "",
+    })
+}
+
+// add this under the loading function
+return (
+    <section>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={newForm.name}
+          name="name"
+          placeholder="name"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          value={newForm.description}
+          name="description"
+          placeholder="description"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          value={newForm.code}
+          name="code"
+          placeholder="code"
+          onChange={handleChange}
+        />
+        <input type="submit" value="Create Thing" />
+      </form>
+      {props.things ? loaded() : loading()}
+    </section>
+  )
+```
